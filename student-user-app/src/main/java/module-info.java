@@ -9,13 +9,11 @@ module com.student.user.app.studentuserapp {
 
     opens com.student.user.app to javafx.fxml;
     opens com.student.user.app.controllers.item to javafx.fxml;
-    opens com.student.user.app.controllers.list to javafx.fxml;
     opens com.student.user.app.controllers.dashboard to javafx.fxml;
     opens com.student.user.app.controllers.main to javafx.fxml;
 
     exports com.student.user.app;
     exports com.student.user.app.controllers.item;
-    exports com.student.user.app.controllers.list;
     exports com.student.user.app.controllers.dashboard;
     exports com.student.user.app.controllers.main;
 

@@ -94,7 +94,7 @@ public class UserListController implements Initializable {
                         setGraphic(null);
                         setText(null);
                     } else {
-                        editButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/images/editbutton.png"))));
+                        editButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/assets/editbutton.png"))));
                         editButton.setOnAction(event -> {
                             User user = getTableView().getItems().get(getIndex());
                             showEditUser(user, (ActionEvent) event);
@@ -163,7 +163,6 @@ public class UserListController implements Initializable {
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.initStyle(StageStyle.UNDECORATED);
         } catch (IOException e) {
             e.printStackTrace();
         }

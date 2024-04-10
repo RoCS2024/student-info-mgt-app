@@ -55,7 +55,7 @@
                             <graphic>
                                 <ImageView accessibleRole="TOGGLE_BUTTON" fitHeight="19.0" fitWidth="115.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../images/view.png" />
+                                        <Image url="@../assets/view.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -81,7 +81,7 @@
                     <children>
                         <ImageView accessibleRole="PARENT" fitHeight="190.0" fitWidth="194.0" nodeOrientation="INHERIT" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                             <image>
-                                <Image url="@../images/deus22.png" />
+                                <Image url="@../assets/deus22.png" />
                             </image>
                         </ImageView>
                         <Text fill="#00214a" strokeType="INSIDE" strokeWidth="0.0" text="No Account? Create One." textAlignment="CENTER" wrappingWidth="196.0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -118,7 +118,7 @@
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../images/closebutton.png" />
+                                        <Image url="@../assets/closebutton.png" />
                                     </image>
                                 </ImageView>
                             </graphic>

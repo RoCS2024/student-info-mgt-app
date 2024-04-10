@@ -290,7 +290,7 @@
                     <children>
                         <ImageView fitHeight="35.0" fitWidth="680.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                             <image>
-                                <Image url="@../images/logo_new.png" />
+                                <Image url="@../assets/logo_new.png" />
                             </image>
                             <GridPane.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

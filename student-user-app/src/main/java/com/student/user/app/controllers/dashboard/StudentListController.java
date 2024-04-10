@@ -94,7 +94,7 @@ public class StudentListController implements Initializable {
                                     setGraphic(null);
                                     setText(null);
                                 } else {
-                                    editButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/images/editbutton.png"))));
+                                    editButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/assets/editbutton.png"))));
                                     editButton.setOnAction(event -> {
                                         Student updateStudent = getTableView().getItems().get(getIndex());
                                         showStudentUpdate(updateStudent, (ActionEvent) event);

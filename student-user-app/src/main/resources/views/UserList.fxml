@@ -20,7 +20,7 @@
             <children>
                 <ImageView fitHeight="40.0" fitWidth="210.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../images/logo_new.png" />
+                        <Image url="@../assets/logo_new.png" />
                     </image>
                     <HBox.margin>
                         <Insets bottom="5.0" left="30.0" top="5.0" />
@@ -37,7 +37,7 @@
             <children>
                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../images/burger.png" />
+                        <Image url="@../assets/burger.png" />
                     </image>
                     <VBox.margin>
                         <Insets left="25.0" top="8.0" />
@@ -48,7 +48,7 @@
                 </ImageView>
                 <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#handleIconUserList" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../images/userList.png" />
+                        <Image url="@../assets/userList.png" />
                     </image>
                     <VBox.margin>
                         <Insets left="25.0" top="30.0" />
@@ -67,7 +67,7 @@
                 </Label>
                 <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#handleIconStudList" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../images/studentList.png" />
+                        <Image url="@../assets/studentList.png" />
                     </image>
                     <VBox.margin>
                         <Insets left="25.0" top="30.0" />
@@ -86,7 +86,7 @@
                 </Label>
             <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="35.0" layoutY="161.0" onMouseClicked="#handleIconLogout" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/logoutbutton.png" />
+                  <Image url="@../assets/logoutbutton.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
