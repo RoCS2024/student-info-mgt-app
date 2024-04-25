@@ -2,8 +2,8 @@ module com.student.user.app.studentuserapp {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
-    requires umsv2;
-    requires sims;
+    requires ums;
+    requires sim;
 
    requires org.apache.logging.log4j.slf4j2.impl;
 

@@ -3,6 +3,8 @@ package com.student.user.app.controllers.item;
 import com.student.information.management.appl.facade.student.StudentFacade;
 import com.student.information.management.appl.facade.student.impl.StudentFacadeImpl;
 import com.student.information.management.appl.model.student.Student;
+import com.student.information.management.data.student.dao.StudentDao;
+import com.student.information.management.data.student.dao.impl.StudentDaoImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -61,11 +63,13 @@ public class AddStudentController implements Initializable {
     @FXML
     private Button studentAddButton;
 
-    private StudentFacade studentFacade = new StudentFacadeImpl();
+
+    private StudentDao studentDao = new StudentDaoImpl();
+    private StudentFacade studentFacade = new StudentFacadeImpl(studentDao);
 
 
     @FXML
-    protected void onAddStudClicked(ActionEvent event) {
+    protected void onAddStudClicked(ActionEvent event) throws IOException {
         try {
         Student addStudent = new Student();
         addStudent.setStudentId(studentId.getText());
@@ -86,8 +90,17 @@ public class AddStudentController implements Initializable {
         } catch(Exception ex) {
             ex.printStackTrace();;
         }
+        Stage dashboardStage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/views/StudentList.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        dashboardStage.setScene(scene);
+
+        dashboardStage.show();
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.close();
+
     }
 
     @FXML
