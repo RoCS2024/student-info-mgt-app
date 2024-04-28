@@ -1,9 +1,11 @@
 package com.student.user.app.controllers.dashboard;
+import com.student.information.management.StudentInfoMgtApplication;
 import com.student.information.management.appl.facade.student.StudentFacade;
 import com.student.information.management.appl.facade.student.impl.StudentFacadeImpl;
 import com.student.information.management.appl.model.student.Student;
 
 
+import com.student.information.management.data.student.dao.impl.StudentDaoImpl;
 import com.student.user.app.controllers.item.UpdateStudentController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,10 +49,15 @@ public class StudentListController implements Initializable {
     @FXML
     private ComboBox<String> comboBox;
 
-    private StudentFacade studentFacade = new StudentFacadeImpl();
+
+    private StudentFacade studentFacade;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        StudentInfoMgtApplication app = new StudentInfoMgtApplication();
+        studentFacade = app.getStudentFacade();
+
         table.getItems().clear();
 
         List<Student> students = studentFacade.getAllStudents();

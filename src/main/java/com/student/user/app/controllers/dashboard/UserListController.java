@@ -2,6 +2,7 @@ package com.student.user.app.controllers.dashboard;
 
 
 import com.student.user.app.controllers.item.ChangePswController;
+import com.user.management.UserInfoMgtApplication;
 import com.user.management.appl.facade.user.UserFacade;
 import com.user.management.appl.facade.user.impl.UserFacadeImpl;
 import com.user.management.appl.model.user.User;
@@ -47,10 +48,14 @@ public class UserListController implements Initializable {
     @FXML
     TableView table;
 
-    private UserFacade userFacade = new UserFacadeImpl();
+    private UserFacade userFacade;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        UserInfoMgtApplication app = new UserInfoMgtApplication();
+        userFacade = app.getUserFacade();
+
         table.getItems().clear();
 
         List<User> users = userFacade.getAllUsers();
