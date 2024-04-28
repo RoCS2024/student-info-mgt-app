@@ -64,8 +64,9 @@ public class AddStudentController implements Initializable {
     private Button studentAddButton;
 
 
-    private StudentDao studentDao = new StudentDaoImpl();
-    private StudentFacade studentFacade = new StudentFacadeImpl(studentDao);
+    StudentInfoMgtApplication app = new StudentInfoMgtApplication();
+
+    StudentFacade studentFacade = app.getStudentFacade();
 
 
     @FXML

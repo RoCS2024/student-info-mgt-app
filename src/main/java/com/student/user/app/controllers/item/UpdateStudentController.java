@@ -58,7 +58,9 @@ public class UpdateStudentController {
     @FXML
     private Button studentUpdateButton;
 
-    private StudentFacade studentFacade = new StudentFacadeImpl();
+    StudentInfoMgtApplication app = new StudentInfoMgtApplication();
+
+    StudentFacade studentFacade = app.getStudentFacade();
 
 
 
