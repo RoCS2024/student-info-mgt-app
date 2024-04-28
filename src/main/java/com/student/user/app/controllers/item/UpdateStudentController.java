@@ -59,10 +59,7 @@ public class UpdateStudentController {
     @FXML
     private Button studentUpdateButton;
 
-    private StudentFacade studentFacade = new StudentFacadeImpl(new StudentDaoImpl());
-
-
-
+    private StudentFacade studentFacade = new StudentFacadeImpl();
 
     public void setStudent(Student student) {
         this.student = student;

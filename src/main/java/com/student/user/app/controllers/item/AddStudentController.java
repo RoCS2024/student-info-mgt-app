@@ -62,8 +62,7 @@ public class AddStudentController implements Initializable {
     @FXML
     private Button studentAddButton;
 
-    private StudentFacade studentFacade = new StudentFacadeImpl(new StudentDaoImpl());
-
+    private StudentFacade studentFacade = new StudentFacadeImpl();
 
     @FXML
     protected void onAddStudClicked(ActionEvent event) {

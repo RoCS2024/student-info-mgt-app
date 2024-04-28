@@ -108,14 +108,6 @@ public class MainController {
         passwordShown.setVisible(false);
     }
 
-//    public void logButtonOnAction(ActionEvent event) throws IOException {
-//        Parent root = FXMLLoader.load(getClass().getResource("/views/UserList.fxml"));
-//        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-//        scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
-//    }
-
     public void signButtonOnAction(ActionEvent event) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/views/CreateAcc.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
