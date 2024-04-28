@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -23,13 +24,40 @@ public class ChangePswController {
     private TextField usernameField;
 
     @FXML
+    private TextField show_password1;
+
+    @FXML
+    private TextField show_newPsw;
+
+    @FXML
+    private TextField show_confirmPsw;
+
+    @FXML
     private PasswordField currentPswField;
+
+    @FXML
+    private PasswordField confirmPswField;
 
     @FXML
     private PasswordField newPswField;
 
     @FXML
-    private PasswordField confirmPswField;
+    private ToggleButton toggle_button1;
+
+    @FXML
+    private ToggleButton toggle_button2;
+
+    @FXML
+    private ToggleButton toggle_button3;
+
+    @FXML
+    private ToggleButton toggle_button4;
+
+    @FXML
+    private ToggleButton toggle_button5;
+
+    @FXML
+    private ToggleButton toggle_button6;
 
     @FXML
     private Button saveChangePswButton;
@@ -93,5 +121,96 @@ public class ChangePswController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    void changeVisibility(ActionEvent event){
+        if (toggle_button4.isSelected()){
+            show_password1.setText(currentPswField.getText());
+            show_password1.setVisible(true);
+            currentPswField.setVisible(false);
+            toggle_button4.setVisible(false);
+            return;
+        }
+        currentPswField.setText(show_password1.getText());
+        currentPswField.setVisible(true);
+        show_password1.setVisible(false);
+        toggle_button4.setVisible(true);
+    }
+
+    @FXML
+    void changeVisibility2(ActionEvent event){
+        if (toggle_button1.isSelected()){
+            currentPswField.setText(show_password1.getText());
+            currentPswField.setVisible(true);
+            show_password1.setVisible(false);
+            toggle_button4.setVisible(true);
+            return;
+        }
+        show_password1.setText(currentPswField.getText());
+        show_password1.setVisible(true);
+        currentPswField.setVisible(false);
+        toggle_button4.setVisible(false);
+    }
+
+    @FXML
+    void changeVisibility3(ActionEvent event){
+        if (toggle_button5.isSelected()){
+            show_confirmPsw.setText(confirmPswField.getText());
+            show_confirmPsw.setVisible(true);
+            confirmPswField.setVisible(false);
+            toggle_button5.setVisible(false);
+            return;
+        }
+        confirmPswField.setText(show_confirmPsw.getText());
+        confirmPswField.setVisible(true);
+        show_confirmPsw.setVisible(false);
+        toggle_button5.setVisible(true);
+    }
+
+    @FXML
+    void changeVisibility4(ActionEvent event){
+        if (toggle_button2.isSelected()){
+            confirmPswField.setText(show_confirmPsw.getText());
+            confirmPswField.setVisible(true);
+            show_confirmPsw.setVisible(false);
+            toggle_button5.setVisible(true);
+            return;
+        }
+        show_confirmPsw.setText(confirmPswField.getText());
+        show_confirmPsw.setVisible(true);
+        confirmPswField.setVisible(false);
+        toggle_button5.setVisible(false);
+    }
+
+    @FXML
+    void changeVisibility5(ActionEvent event){
+        if (toggle_button6.isSelected()){
+            show_newPsw.setText(newPswField.getText());
+            show_newPsw.setVisible(true);
+            newPswField.setVisible(false);
+            toggle_button6.setVisible(false);
+            return;
+        }
+        newPswField.setText(show_newPsw.getText());
+        newPswField.setVisible(true);
+        show_newPsw.setVisible(false);
+        toggle_button6.setVisible(true);
+    }
+
+    @FXML
+    void changeVisibility6(ActionEvent event){
+        if (toggle_button3.isSelected()){
+            newPswField.setText(show_newPsw.getText());
+            newPswField.setVisible(true);
+            show_newPsw.setVisible(false);
+            toggle_button6.setVisible(true);
+            return;
+        }
+        show_newPsw.setText(newPswField.getText());
+        show_newPsw.setVisible(true);
+        newPswField.setVisible(false);
+        toggle_button6.setVisible(false);
+    }
+
 
 }

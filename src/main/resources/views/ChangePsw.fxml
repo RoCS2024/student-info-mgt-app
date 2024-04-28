@@ -5,6 +5,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -48,7 +51,7 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <TextField fx:id="usernameField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Enter Password" style="-fx-background-color: #f0f0f0; -fx-border-color: #999999; -fx-border-radius: 5;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                        <TextField fx:id="usernameField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Enter Username" style="-fx-background-color: #f0f0f0; -fx-border-color: #999999; -fx-border-radius: 5;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                             <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                             </padding>
@@ -66,11 +69,40 @@
                                     </rowConstraints>
                                     <children>
                                         <Label prefWidth="300.0" text="Current Password:" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
+                              <TextField fx:id="show_password1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Show Current Password" style="-fx-background-color: #f0f0f0; -fx-border-color: #999999; -fx-border-radius: 5;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </TextField>
                                         <PasswordField fx:id="currentPswField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Enter Current Password" style="-fx-background-color: #f0f0f0; -fx-border-color: #999999; -fx-border-radius: 5;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                             <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                             </padding>
                                         </PasswordField>
+                              <ToggleButton fx:id="toggle_button1" mnemonicParsing="false" onAction="#changeVisibility2" style="-fx-background-color: none;" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../assets/view.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <GridPane.margin>
+                                    <Insets right="38.0" top="8.0" />
+                                 </GridPane.margin>
+                              </ToggleButton>
+                              <ToggleButton fx:id="toggle_button4" mnemonicParsing="false" onAction="#changeVisibility" style="-fx-background-color: #F0F0F0;" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                 <GridPane.margin>
+                                    <Insets right="38.0" top="7.0" />
+                                 </GridPane.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../assets/eyebrow.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </ToggleButton>
                                     </children>
                                 </GridPane>
                                 <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="360.0" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
@@ -88,7 +120,7 @@
                                                 <Insets />
                                             </GridPane.margin>
                                         </Button>
-                                        <Button fx:id="saveChangePswButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" style="-fx-background-radius: 20; -fx-background-color: #009922;" text="SAVE" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" onAction="#onSaveChangePswClicked" />
+                                        <Button fx:id="saveChangePswButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#onSaveChangePswClicked" prefHeight="30.0" prefWidth="130.0" style="-fx-background-radius: 20; -fx-background-color: #009922;" text="SAVE" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" />
                                     </children>
                                 </GridPane>
                                 <GridPane GridPane.rowIndex="5">
@@ -96,16 +128,46 @@
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     </columnConstraints>
                                     <rowConstraints>
+                                        <RowConstraints />
                                         <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <Label prefWidth="300.0" text="Confirm Password:" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
-                                        <PasswordField fx:id="confirmPswField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Confirm Password" style="-fx-background-color: #f0f0f0; -fx-border-color: #999999; -fx-border-radius: 5;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                        <Label prefWidth="300.0" text="Confirm Password:" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                              <TextField fx:id="show_confirmPsw" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Show Confirm Password" style="-fx-background-color: #f0f0f0; -fx-border-color: #999999; -fx-border-radius: 5;" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </TextField>
+                                        <PasswordField fx:id="confirmPswField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Confirm Password" style="-fx-background-color: #f0f0f0; -fx-border-color: #999999; -fx-border-radius: 5;" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                                             <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                             </padding>
                                         </PasswordField>
+                              <ToggleButton fx:id="toggle_button2" mnemonicParsing="false" onAction="#changeVisibility4" style="-fx-background-color: none;" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../assets/view.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <GridPane.margin>
+                                    <Insets right="38.0" top="8.0" />
+                                 </GridPane.margin>
+                              </ToggleButton>
+                              <ToggleButton fx:id="toggle_button5" mnemonicParsing="false" onAction="#changeVisibility3" style="-fx-background-color: #F0F0F0;" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../assets/eyebrow.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <GridPane.margin>
+                                    <Insets right="38.0" top="8.0" />
+                                 </GridPane.margin>
+                              </ToggleButton>
                                     </children>
                                 </GridPane>
                                 <Line endX="200.0" startX="-100.0" stroke="#bbbbbb" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
@@ -119,11 +181,40 @@
                                     </rowConstraints>
                                     <children>
                                         <Label prefWidth="300.0" text="New Password:" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
+                              <TextField fx:id="show_newPsw" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Show New Password" style="-fx-background-color: #f0f0f0; -fx-border-color: #999999; -fx-border-radius: 5;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </TextField>
                                         <PasswordField fx:id="newPswField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Enter New Password" style="-fx-background-color: #f0f0f0; -fx-border-color: #999999; -fx-border-radius: 5;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                             <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                             </padding>
                                         </PasswordField>
+                              <ToggleButton fx:id="toggle_button3" mnemonicParsing="false" onAction="#changeVisibility6" style="-fx-background-color: none;" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../assets/view.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <GridPane.margin>
+                                    <Insets right="38.0" top="8.0" />
+                                 </GridPane.margin>
+                              </ToggleButton>
+                              <ToggleButton fx:id="toggle_button6" mnemonicParsing="false" onAction="#changeVisibility5" style="-fx-background-color: #F0F0F0;" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../assets/eyebrow.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <GridPane.margin>
+                                    <Insets right="38.0" top="8.0" />
+                                 </GridPane.margin>
+                              </ToggleButton>
                                     </children>
                                 </GridPane>
                             </children>
