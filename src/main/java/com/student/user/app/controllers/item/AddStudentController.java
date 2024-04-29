@@ -15,7 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import javafx.stage.Stage;
-
+import javafx.stage.StageStyle;
 
 
 import java.io.IOException;
@@ -89,18 +89,29 @@ public class AddStudentController implements Initializable {
 
             studentFacade.addStudent(addStudent);
         } catch(Exception ex) {
-            ex.printStackTrace();;
+            ex.printStackTrace();
         }
-        Stage dashboardStage = new Stage();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/views/StudentList.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        dashboardStage.setScene(scene);
+        finally {
+            try{
 
-        dashboardStage.show();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.close();
+                Stage previousStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                previousStage.close();
+
+                Stage dashboardStage = new Stage();
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/views/StudentList.fxml"));
+                Parent root = loader.load();
+                Scene scene = new Scene(root);
+                dashboardStage.setScene(scene);
+
+                dashboardStage.initStyle(StageStyle.UNDECORATED);
+
+            }
+            catch(Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+
 
     }
 
