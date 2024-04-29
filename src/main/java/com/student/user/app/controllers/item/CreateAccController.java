@@ -38,37 +38,53 @@ public class CreateAccController {
 
     @FXML
     protected void saveRegisterClicked(ActionEvent event) {
-        User addUser = new User();
-        addUser.setId(Integer.parseInt(idField.getText()));
-        addUser.setUsername(usernameField.getText());
-        addUser.setEntity_id(entityIdField.getText());
-
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        addUser.setDate_created(timestamp);
-        addUser.setDate_modified(timestamp);
-
         try {
-            userFacade.saveUser(addUser);
-        } catch(Exception ex) {
-            ex.printStackTrace();;
-        }
-        finally {
-            try {
-                Stage previousStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                previousStage.close();
-
-                Stage dashboardStage = new Stage();
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/views/MainView.fxml"));
-                Parent root = loader.load();
-                Scene scene = new Scene(root);
-                dashboardStage.setScene(scene);
-                dashboardStage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (!isValidId(idField.getText())) {
+                showAlert("Invalid Input", "ID field should only accept numbers.");
+                return;
             }
+
+            User addUser = new User();
+            addUser.setId(Integer.parseInt(idField.getText()));
+            addUser.setUsername(usernameField.getText());
+            addUser.setEntity_id(entityIdField.getText());
+
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            addUser.setDate_created(timestamp);
+            addUser.setDate_modified(timestamp);
+
+            userFacade.saveUser(addUser);
+
+            Stage previousStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            previousStage.close();
+            Stage dashboardStage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/views/MainView.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            dashboardStage.setScene(scene);
+            dashboardStage.show();
+        } catch (NumberFormatException ex) {
+            showAlert("Invalid Input", "Invalid format for ID. Please enter numbers only.");
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
+
+    private boolean isValidId(String id) {
+        String regex = "^[0-9]*$";
+        return id.matches(regex);
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 
     @FXML
     protected void handleHaveAccount(MouseEvent event) {
