@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
@@ -51,6 +52,17 @@ public class MainController {
     }
 
     public void logButtonOnAction(ActionEvent event) throws IOException {
+        String username = passwordShown.getText();
+        String password = passwordField.getText();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Username and password are required.");
+            alert.showAndWait();
+            return;
+        }
         Parent root = FXMLLoader.load(getClass().getResource("/views/UserList.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
