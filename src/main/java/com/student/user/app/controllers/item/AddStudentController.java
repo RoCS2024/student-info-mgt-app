@@ -67,31 +67,100 @@ public class AddStudentController implements Initializable {
 
     StudentFacade studentFacade = app.getStudentFacade();
 
+    private String getInvalidInputMessage() {
+        String studentIdRegex = "^[a-zA-Z0-9-]*$";
+
+        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+
+        String addressRegex = "^[a-zA-Z0-9,.\\- ]*$";
+
+
+        if (!studentId.getText().matches(studentIdRegex)) {
+            return "Invalid input for Student ID.";
+        }
+        if (!email.getText().matches(emailRegex)) {
+            return "Invalid input for Email. Please enter a valid email address.";
+        }
+        if (!address.getText().matches(addressRegex)) {
+            return "Invalid input for Address.";
+        }
+
+
+        String genericRegex = "^[a-zA-Z0-9]*$";
+        if (!lastName.getText().matches(genericRegex)) {
+            return "Invalid input for Last Name.";
+        }
+        if (!firstName.getText().matches(genericRegex)) {
+            return "Invalid input for First Name.";
+        }
+        if (!middleName.getText().matches(genericRegex)) {
+            return "Invalid input for Middle Name.";
+        }
+        if (!religion.getText().matches(genericRegex)) {
+            return "Invalid input for Religion.";
+        }
+        if (!contactNo.getText().matches(genericRegex)) {
+            return "Invalid input for Contact Number.";
+        }
+
+        return null;
+    }
+
+
     @FXML
     protected void onAddStudClicked(ActionEvent event) {
         try {
-        Student addStudent = new Student();
-        addStudent.setStudentId(studentId.getText());
-        addStudent.setLastName(lastName.getText());
-        addStudent.setFirstName(firstName.getText());
-        addStudent.setMiddleName(middleName.getText());
-        addStudent.setSex(sex.getValue());
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = dateFormat.parse(birthday.getValue().toString());
-        long time = date.getTime();
-        addStudent.setBirthday(new Timestamp(time));
-        addStudent.setReligion(religion.getText());
-        addStudent.setEmail(email.getText());
-        addStudent.setContactNumber(contactNo.getText());
-        addStudent.setAddress(address.getText());
+            // Check for invalid input
+            String invalidInputMessage = getInvalidInputMessage();
+            if (invalidInputMessage != null) {
+                showAlert("Invalid Input", invalidInputMessage);
+                return;
+            }
 
+            // Create a new student object
+            Student addStudent = new Student();
+            addStudent.setStudentId(studentId.getText());
+            addStudent.setLastName(lastName.getText());
+            addStudent.setFirstName(firstName.getText());
+            addStudent.setMiddleName(middleName.getText());
+            addStudent.setSex(sex.getValue());
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = dateFormat.parse(birthday.getValue().toString());
+            long time = date.getTime();
+            addStudent.setBirthday(new Timestamp(time));
+            addStudent.setReligion(religion.getText());
+            addStudent.setEmail(email.getText());
+            addStudent.setContactNumber(contactNo.getText());
+            addStudent.setAddress(address.getText());
+
+            // Add student
             studentFacade.addStudent(addStudent);
-        } catch(Exception ex) {
-            ex.printStackTrace();;
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+
+
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Invalid Input");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 
     @FXML
     protected void handleCancelAddStudentButton(ActionEvent event) {
