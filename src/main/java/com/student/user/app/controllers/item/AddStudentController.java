@@ -1,5 +1,6 @@
 package com.student.user.app.controllers.item;
 
+import com.student.information.management.StudentInfoMgtApplication;
 import com.student.information.management.appl.facade.student.StudentFacade;
 import com.student.information.management.appl.facade.student.impl.StudentFacadeImpl;
 import com.student.information.management.appl.model.student.Student;
@@ -24,6 +25,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -70,7 +72,7 @@ public class AddStudentController implements Initializable {
 
 
     @FXML
-    protected void onAddStudClicked(ActionEvent event) throws IOException {
+    protected void onAddStudClicked(ActionEvent event){
         try {
         Student addStudent = new Student();
         addStudent.setStudentId(studentId.getText());
@@ -78,16 +80,25 @@ public class AddStudentController implements Initializable {
         addStudent.setFirstName(firstName.getText());
         addStudent.setMiddleName(middleName.getText());
         addStudent.setSex(sex.getValue());
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = dateFormat.parse(birthday.getValue().toString());
-        long time = date.getTime();
-        addStudent.setBirthday(new Timestamp(time));
-        addStudent.setReligion(religion.getText());
-        addStudent.setEmail(email.getText());
-        addStudent.setContactNumber(contactNo.getText());
-        addStudent.setAddress(address.getText());
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = dateFormat.parse(birthday.getValue().toString());
 
-            studentFacade.addStudent(addStudent);
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.YEAR, -17);
+            Date minAllowedBirthday = cal.getTime();
+
+            if (date.before(minAllowedBirthday)) {
+                long time = date.getTime();
+                addStudent.setBirthday(new Timestamp(time));
+                addStudent.setReligion(religion.getText());
+                addStudent.setEmail(email.getText());
+                addStudent.setContactNumber(contactNo.getText());
+                addStudent.setAddress(address.getText());
+
+                studentFacade.addStudent(addStudent);
+            } else {
+                System.out.println("Invalid birthday. Student must be at least 17 years old.");
+            }
         } catch(Exception ex) {
             ex.printStackTrace();
         }
@@ -111,7 +122,6 @@ public class AddStudentController implements Initializable {
                 ex.printStackTrace();
             }
         }
-
 
     }
 
