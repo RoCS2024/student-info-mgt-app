@@ -73,6 +73,19 @@ public class AddStudentController implements Initializable {
 
     private String getInvalidInputMessage() {
         String regex = "[a-zA-Z0-9]+@gmail\\.com";
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.YEAR, -17);
+        Date minAllowedBirthday = cal.getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date selectedBirthday = null;
+        try {
+            selectedBirthday = dateFormat.parse(birthday.getValue().toString());
+        } catch (ParseException e) {
+            return "Invalid input for Birthday. Please select a valid date.";
+        }
+        if (selectedBirthday.after(minAllowedBirthday)) {
+            return "Invalid input for Birthday. Please select a date at least 17 years ago.";
+        }
         if (!email.getText().matches(regex)) {
             return "Invalid input for Email. Please enter alphanumeric characters only.";
         }
