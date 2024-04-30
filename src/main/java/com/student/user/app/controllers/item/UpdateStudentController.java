@@ -1,5 +1,6 @@
 package com.student.user.app.controllers.item;
 
+import com.student.information.management.StudentInfoMgtApplication;
 import com.student.information.management.appl.facade.student.StudentFacade;
 import com.student.information.management.appl.facade.student.impl.StudentFacadeImpl;
 import com.student.information.management.appl.model.student.Student;
@@ -58,7 +59,10 @@ public class UpdateStudentController {
     @FXML
     private Button studentUpdateButton;
 
-    private StudentFacade studentFacade = new StudentFacadeImpl();
+
+    StudentInfoMgtApplication app = new StudentInfoMgtApplication();
+
+    StudentFacade studentFacade = app.getStudentFacade();
 
 
 

@@ -1,8 +1,11 @@
 package com.student.user.app.controllers.item;
 
+import com.student.information.management.StudentInfoMgtApplication;
 import com.student.information.management.appl.facade.student.StudentFacade;
 import com.student.information.management.appl.facade.student.impl.StudentFacadeImpl;
 import com.student.information.management.appl.model.student.Student;
+import com.student.information.management.data.student.dao.StudentDao;
+import com.student.information.management.data.student.dao.impl.StudentDaoImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,15 +16,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import javafx.stage.Stage;
-
+import javafx.stage.StageStyle;
 
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -61,12 +66,14 @@ public class AddStudentController implements Initializable {
     @FXML
     private Button studentAddButton;
 
-    private StudentFacade studentFacade = new StudentFacadeImpl();
+
+    StudentInfoMgtApplication app = new StudentInfoMgtApplication();
+
+    StudentFacade studentFacade = app.getStudentFacade();
 
 
     @FXML
     protected void onAddStudClicked(ActionEvent event) {
-        try {
         Student addStudent = new Student();
         addStudent.setStudentId(studentId.getText());
         addStudent.setLastName(lastName.getText());
@@ -74,20 +81,44 @@ public class AddStudentController implements Initializable {
         addStudent.setMiddleName(middleName.getText());
         addStudent.setSex(sex.getValue());
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = dateFormat.parse(birthday.getValue().toString());
+        Date date = null;
+        try {
+            date = dateFormat.parse(birthday.getValue().toString());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
         long time = date.getTime();
         addStudent.setBirthday(new Timestamp(time));
         addStudent.setReligion(religion.getText());
         addStudent.setEmail(email.getText());
         addStudent.setContactNumber(contactNo.getText());
         addStudent.setAddress(address.getText());
-
+        try {
             studentFacade.addStudent(addStudent);
         } catch(Exception ex) {
-            ex.printStackTrace();;
+            ex.printStackTrace();
+        } finally {
+            try {
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.close();
+
+                Stage dashboardStage = new Stage();
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/views/StudentList.fxml"));
+                Parent root = loader.load();
+                Scene scene = new Scene(root);
+                dashboardStage.setScene(scene);
+
+
+                dashboardStage.initStyle(StageStyle.UNDECORATED);
+                dashboardStage.show();
+
+            }
+            catch(Exception ex) {
+                ex.printStackTrace();
+            }
         }
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.close();
+
     }
 
     @FXML

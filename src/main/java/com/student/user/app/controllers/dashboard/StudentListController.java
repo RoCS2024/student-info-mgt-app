@@ -1,4 +1,5 @@
 package com.student.user.app.controllers.dashboard;
+import com.student.information.management.StudentInfoMgtApplication;
 import com.student.information.management.appl.facade.student.StudentFacade;
 import com.student.information.management.appl.facade.student.impl.StudentFacadeImpl;
 import com.student.information.management.appl.model.student.Student;
@@ -47,10 +48,14 @@ public class StudentListController implements Initializable {
     @FXML
     private ComboBox<String> comboBox;
 
-    private StudentFacade studentFacade = new StudentFacadeImpl();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        StudentInfoMgtApplication app = new StudentInfoMgtApplication();
+
+        StudentFacade studentFacade = app.getStudentFacade();
+
         table.getItems().clear();
 
         List<Student> students = studentFacade.getAllStudents();
