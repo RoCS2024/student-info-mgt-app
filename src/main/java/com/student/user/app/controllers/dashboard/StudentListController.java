@@ -49,13 +49,13 @@ public class StudentListController implements Initializable {
     @FXML
     private ComboBox<String> comboBox;
 
-
     private StudentFacade studentFacade;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         StudentInfoMgtApplication app = new StudentInfoMgtApplication();
+
         studentFacade = app.getStudentFacade();
 
         table.getItems().clear();
