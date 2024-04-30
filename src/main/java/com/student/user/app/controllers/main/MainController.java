@@ -44,11 +44,16 @@ public class MainController {
 
         try {
             User currentUser = userFacade.findUserByUsername(username);
-            if (currentUser != null && password.equals(currentUser.getPassword()) && password2.equals(currentUser.getPassword())) {
-                showAlert("Login Successful", "Welcome " + username + "!", Alert.AlertType.INFORMATION);
-                openDashboardWindow(event);
-            } else {
-                showAlert("Login Failed", "Please double-check your username and password.", Alert.AlertType.ERROR);
+            if (currentUser != null) {
+                if (password.equals(currentUser.getPassword()) || password2.equals(currentUser.getPassword())) {
+                    showAlert("Login Successful", "Welcome " + username + "!", Alert.AlertType.INFORMATION);
+                    openDashboardWindow(event);
+                } else {
+                    showAlert("Login Failed", "Incorrect password", Alert.AlertType.ERROR);
+                }
+            }
+            else {
+                showAlert("Login Failed", "Username not found.", Alert.AlertType.ERROR);
             }
         } catch (Exception ex) {
             showAlert("Error", "An error occurred during login: " + ex.getMessage(), Alert.AlertType.ERROR);
