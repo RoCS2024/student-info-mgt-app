@@ -20,8 +20,6 @@ import java.sql.Timestamp;
 
 public class CreateAccController {
 
-    @FXML
-    private TextField idField;
 
     @FXML
     private TextField usernameField;
@@ -39,7 +37,6 @@ public class CreateAccController {
     @FXML
     protected void saveRegisterClicked(ActionEvent event) {
         User addUser = new User();
-        addUser.setId(Integer.parseInt(idField.getText()));
         addUser.setUsername(usernameField.getText());
         addUser.setEntity_id(entityIdField.getText());
 
