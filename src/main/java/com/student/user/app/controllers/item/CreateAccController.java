@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -17,6 +18,11 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class CreateAccController {
 
@@ -35,9 +41,32 @@ public class CreateAccController {
     private User user;
 
     private UserFacade userFacade = new UserFacadeImpl();
+    private String getInvalidInputMessage() {
+        String alphanumericRegex = "[a-zA-Z0-9]+";
 
+        if (!idField.getText().matches(alphanumericRegex)) {
+            return "Invalid input for Email. Please enter alphanumeric characters only.";
+        }
+        if (!usernameField.getText().matches(alphanumericRegex)) {
+            return "Invalid input for Email. Please enter alphanumeric characters only.";
+        }
+        if (!entityIdField.getText().matches(alphanumericRegex)) {
+            return "Invalid input for Email. Please enter alphanumeric characters only.";
+        }
+        return null;
+    }
     @FXML
     protected void saveRegisterClicked(ActionEvent event) {
+        try {
+            String invalidInputMessage = getInvalidInputMessage();
+            if (invalidInputMessage != null) {
+                showAlert("Invalid Input", invalidInputMessage);
+                return;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         User addUser = new User();
         addUser.setId(Integer.parseInt(idField.getText()));
         addUser.setUsername(usernameField.getText());
@@ -68,6 +97,12 @@ public class CreateAccController {
                 e.printStackTrace();
             }
         }
+    }private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     @FXML
@@ -84,6 +119,7 @@ public class CreateAccController {
 
     @FXML
     protected void handleRegisterNow(MouseEvent event) {
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MainView.fxml"));
             Parent root = loader.load();
