@@ -71,9 +71,25 @@ public class AddStudentController implements Initializable {
 
     StudentFacade studentFacade = app.getStudentFacade();
 
-
+    private String getInvalidInputMessage() {
+        String regex = "[a-zA-Z0-9]+@gmail\\.com";
+        if (!email.getText().matches(regex)) {
+            return "Invalid input for Email. Please enter alphanumeric characters only.";
+        }
+        return null;
+    }
     @FXML
     protected void onAddStudClicked(ActionEvent event) {
+        try {
+            String invalidInputMessage = getInvalidInputMessage();
+            if (invalidInputMessage != null) {
+                showAlert("Invalid Input", invalidInputMessage);
+                return;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         Student addStudent = new Student();
         addStudent.setStudentId(studentId.getText());
         addStudent.setLastName(lastName.getText());
@@ -119,6 +135,12 @@ public class AddStudentController implements Initializable {
             }
         }
 
+    }private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     @FXML
