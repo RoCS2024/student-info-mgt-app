@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.Calendar;
@@ -72,41 +73,34 @@ public class AddStudentController implements Initializable {
 
 
     @FXML
-    protected void onAddStudClicked(ActionEvent event){
-        try {
+    protected void onAddStudClicked(ActionEvent event) {
         Student addStudent = new Student();
         addStudent.setStudentId(studentId.getText());
         addStudent.setLastName(lastName.getText());
         addStudent.setFirstName(firstName.getText());
         addStudent.setMiddleName(middleName.getText());
         addStudent.setSex(sex.getValue());
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = dateFormat.parse(birthday.getValue().toString());
-
-            Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.YEAR, -17);
-            Date minAllowedBirthday = cal.getTime();
-
-            if (date.before(minAllowedBirthday)) {
-                long time = date.getTime();
-                addStudent.setBirthday(new Timestamp(time));
-                addStudent.setReligion(religion.getText());
-                addStudent.setEmail(email.getText());
-                addStudent.setContactNumber(contactNo.getText());
-                addStudent.setAddress(address.getText());
-
-                studentFacade.addStudent(addStudent);
-            } else {
-                System.out.println("Invalid birthday. Student must be at least 17 years old.");
-            }
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = dateFormat.parse(birthday.getValue().toString());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        long time = date.getTime();
+        addStudent.setBirthday(new Timestamp(time));
+        addStudent.setReligion(religion.getText());
+        addStudent.setEmail(email.getText());
+        addStudent.setContactNumber(contactNo.getText());
+        addStudent.setAddress(address.getText());
+        try {
+            studentFacade.addStudent(addStudent);
         } catch(Exception ex) {
             ex.printStackTrace();
-        }
-        finally {
-            try{
-
-                Stage previousStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                previousStage.close();
+        } finally {
+            try {
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.close();
 
                 Stage dashboardStage = new Stage();
                 FXMLLoader loader = new FXMLLoader();
@@ -115,7 +109,9 @@ public class AddStudentController implements Initializable {
                 Scene scene = new Scene(root);
                 dashboardStage.setScene(scene);
 
+
                 dashboardStage.initStyle(StageStyle.UNDECORATED);
+                dashboardStage.show();
 
             }
             catch(Exception ex) {
