@@ -4,8 +4,6 @@ import com.student.information.management.StudentInfoMgtApplication;
 import com.student.information.management.appl.facade.student.StudentFacade;
 import com.student.information.management.appl.facade.student.impl.StudentFacadeImpl;
 import com.student.information.management.appl.model.student.Student;
-import com.student.information.management.data.student.dao.StudentDao;
-import com.student.information.management.data.student.dao.impl.StudentDaoImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,9 +66,7 @@ public class AddStudentController implements Initializable {
 
 
     StudentInfoMgtApplication app = new StudentInfoMgtApplication();
-
     StudentFacade studentFacade = app.getStudentFacade();
-
 
     @FXML
     protected void onAddStudClicked(ActionEvent event) {
