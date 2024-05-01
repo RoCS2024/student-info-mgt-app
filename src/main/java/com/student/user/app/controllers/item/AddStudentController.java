@@ -73,6 +73,8 @@ public class AddStudentController implements Initializable {
     StudentInfoMgtApplication app = new StudentInfoMgtApplication();
     StudentFacade studentFacade = app.getStudentFacade();
 
+
+  
     @FXML
     protected void onAddStudClicked(ActionEvent event) {
         Map<String, String> invalidFields = getInvalidFields();
@@ -81,6 +83,7 @@ public class AddStudentController implements Initializable {
             displayError("Invalid input in the following fields:", invalidFields);
             return;
         }
+
         Student addStudent = new Student();
         addStudent.setStudentId(studentId.getText());
         addStudent.setLastName(lastName.getText());
