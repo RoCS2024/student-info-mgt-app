@@ -55,7 +55,7 @@ public class StudentListController implements Initializable {
 
         StudentInfoMgtApplication app = new StudentInfoMgtApplication();
 
-        StudentFacade studentFacade = app.getStudentFacade();
+        studentFacade = app.getStudentFacade();
 
         table.getItems().clear();
 
