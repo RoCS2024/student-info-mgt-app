@@ -3,9 +3,8 @@ module com.student.user.app.studentuserapp {
     requires javafx.fxml;
     requires java.sql;
     requires ums;
-    requires simsv2;
-
-   requires org.apache.logging.log4j.slf4j2.impl;
+    requires sims;
+    requires org.apache.logging.log4j.slf4j2.impl;
 
     opens com.student.user.app to javafx.fxml;
     opens com.student.user.app.controllers.item to javafx.fxml;

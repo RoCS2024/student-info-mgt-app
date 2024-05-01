@@ -4,8 +4,6 @@ import com.student.information.management.StudentInfoMgtApplication;
 import com.student.information.management.appl.facade.student.StudentFacade;
 import com.student.information.management.appl.facade.student.impl.StudentFacadeImpl;
 import com.student.information.management.appl.model.student.Student;
-import com.student.information.management.data.student.dao.StudentDao;
-import com.student.information.management.data.student.dao.impl.StudentDaoImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +23,11 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import java.util.regex.Pattern;
+import java.util.HashMap;
+import java.util.Map;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -68,39 +71,17 @@ public class AddStudentController implements Initializable {
 
 
     StudentInfoMgtApplication app = new StudentInfoMgtApplication();
-
     StudentFacade studentFacade = app.getStudentFacade();
 
-    private String getInvalidInputMessage() {
-        String regex = "[a-zA-Z0-9]+@gmail\\.com";
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.YEAR, -17);
-        Date minAllowedBirthday = cal.getTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date selectedBirthday = null;
-        try {
-            selectedBirthday = dateFormat.parse(birthday.getValue().toString());
-        } catch (ParseException e) {
-            return "Invalid input for Birthday. Please select a valid date.";
-        }
-        if (selectedBirthday.after(minAllowedBirthday)) {
-            return "Invalid input for Birthday. Please select a date at least 17 years ago.";
-        }
-        if (!email.getText().matches(regex)) {
-            return "Invalid input for Email. Please enter alphanumeric characters only.";
-        }
-        return null;
-    }
+
+  
     @FXML
     protected void onAddStudClicked(ActionEvent event) {
-        try {
-            String invalidInputMessage = getInvalidInputMessage();
-            if (invalidInputMessage != null) {
-                showAlert("Invalid Input", invalidInputMessage);
-                return;
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        Map<String, String> invalidFields = getInvalidFields();
+
+        if (!invalidFields.isEmpty()) {
+            displayError("Invalid input in the following fields:", invalidFields);
+            return;
         }
 
         Student addStudent = new Student();
@@ -181,4 +162,71 @@ public class AddStudentController implements Initializable {
         sex.getItems().addAll("Male", "Female");
     }
 
+    private Map<String, String> getInvalidFields() {
+        Map<String, String> invalidFields = new HashMap<>();
+
+        if (!isValidInput("Student ID", studentId.getText())) {
+            invalidFields.put("Student ID", studentId.getText());
+        }
+        if (!isValidInput("Last Name", lastName.getText())) {
+            invalidFields.put("Last Name", lastName.getText());
+        }
+        if (!isValidInput("First Name", firstName.getText())) {
+            invalidFields.put("First Name", firstName.getText());
+        }
+        if (!isValidInput("Middle Name", middleName.getText())) {
+            invalidFields.put("Middle Name", middleName.getText());
+        }
+        if (!isValidInput("Religion", religion.getText())) {
+            invalidFields.put("Religion", religion.getText());
+        }
+        if (!isValidInput("Email", email.getText())) {
+            invalidFields.put("Email", email.getText());
+        }
+        if (!isValidInput("Contact Number", contactNo.getText())) {
+            invalidFields.put("Contact Number", contactNo.getText());
+        }
+        if (!isValidInput("Address", address.getText())) {
+            invalidFields.put("Address", address.getText());
+        }
+
+        return invalidFields;
+    }
+
+    private boolean isValidInput(String fieldName, String input) {
+        switch (fieldName) {
+            case "Email":
+                return Pattern.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", input);
+
+            case "Address":
+                return Pattern.matches("^[a-zA-Z0-9.,\\- ]+$", input);
+
+            case "Student ID":
+                return Pattern.matches("^[a-zA-Z0-9\\-]+$", input);
+
+            case "Last Name":
+            case "First Name":
+            case "Middle Name":
+            case "Religion":
+                return Pattern.matches("^[a-zA-Z0-9 ]+$", input);
+
+            case "Contact Number":
+                return Pattern.matches("^[0-9]{11}$", input);
+
+
+            default:
+                return false;
+        }
+    }
+
+
+    private void displayError(String header, Map<String, String> invalidFields) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Invalid Input");
+        alert.setHeaderText(header);
+        StringBuilder content = new StringBuilder();
+        invalidFields.forEach((field, value) -> content.append(field).append(": ").append(value).append("\n"));
+        alert.setContentText(content.toString());
+        alert.showAndWait();
+    }
 }
