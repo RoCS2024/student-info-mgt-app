@@ -39,6 +39,7 @@ public class CreateAccController {
     private User user;
 
     private UserFacade userFacade = new UserFacadeImpl();
+
     private String getInvalidInputMessage() {
         String alphanumericRegex = "[a-zA-Z0-9]+";
 

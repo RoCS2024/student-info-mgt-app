@@ -74,7 +74,22 @@ public class AddStudentController implements Initializable {
     StudentFacade studentFacade = app.getStudentFacade();
 
 
-  
+    private String getInvalidInputMessage() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.YEAR, -17);
+        Date minAllowedBirthday = cal.getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date selectedBirthday = null;
+        try {
+            selectedBirthday = dateFormat.parse(birthday.getValue().toString());
+        } catch (ParseException e) {
+            return "Invalid input for Birthday. Please select a valid date.";
+        }
+        if (selectedBirthday.after(minAllowedBirthday)) {
+            return "Invalid input for Birthday. Please select a date at least 17 years ago.";
+        }
+        return null;
+    }
     @FXML
     protected void onAddStudClicked(ActionEvent event) {
         Map<String, String> invalidFields = getInvalidFields();
@@ -82,6 +97,15 @@ public class AddStudentController implements Initializable {
         if (!invalidFields.isEmpty()) {
             displayError("Invalid input in the following fields:", invalidFields);
             return;
+        }
+        try {
+            String invalidInputMessage = getInvalidInputMessage();
+            if (invalidInputMessage != null) {
+                showAlert("Invalid Input", invalidInputMessage);
+                return;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
         Student addStudent = new Student();
@@ -129,6 +153,12 @@ public class AddStudentController implements Initializable {
             }
         }
 
+    }private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     @FXML
