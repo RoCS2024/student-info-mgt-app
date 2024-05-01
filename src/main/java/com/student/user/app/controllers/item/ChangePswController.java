@@ -9,10 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -68,6 +65,19 @@ public class ChangePswController {
 
     @FXML
     protected void onSaveChangePswClicked(ActionEvent event) {
+        String currentPassword = currentPswField.getText();
+        String newPassword = newPswField.getText();
+
+        if (currentPassword.equals(newPassword)) {
+            showAlert("Error", "New password should be different from the current password.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        if (!validateCurrentPassword(usernameField.getText(), currentPassword)) {
+            showAlert("Error", "Current password is incorrect.", Alert.AlertType.ERROR);
+            return;
+        }
+
         User updatePsw = new User();
         updatePsw.setUsername(usernameField.getText());
         updatePsw.setPassword(newPswField.getCharacters().toString());
@@ -96,6 +106,19 @@ public class ChangePswController {
                 e.printStackTrace();
             }
         }
+    }
+
+    private boolean validateCurrentPassword(String username, String currentPassword) {
+        User user = userFacade.findUserByUsername(username);
+        return user != null && user.getPassword().equals(currentPassword);
+    }
+
+    private void showAlert(String title, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     public void setUser(User user) {
