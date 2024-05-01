@@ -42,13 +42,11 @@ public class CreateAccController {
     private String getInvalidInputMessage() {
         String alphanumericRegex = "[a-zA-Z0-9]+";
 
-        if (idField.getText().isEmpty() || usernameField.getText().isEmpty() || entityIdField.getText().isEmpty()) {
+        if ( usernameField.getText().isEmpty() || entityIdField.getText().isEmpty()) {
             return "All fields must be filled.";
         }
 
-        if (!idField.getText().matches(alphanumericRegex)) {
-            return "Invalid input for Email. Please enter alphanumeric characters only.";
-        }
+       
         if (!usernameField.getText().matches(alphanumericRegex)) {
             return "Invalid input for Email. Please enter alphanumeric characters only.";
         }
