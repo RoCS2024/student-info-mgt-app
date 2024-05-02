@@ -9,10 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -54,6 +51,16 @@ public class ForgotPswController {
         String username = usernameField.getText();
         String nickname = nicknameField.getText();
         String newPassword  = newPswField.getText();
+
+        User existingUser = userFacade.findUserByUsername(username);
+        if (existingUser == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Username not registered. Please sign up/create an account first");
+            alert.showAndWait();
+            return;
+        }
 
         try {
             userFacade.forgotPassword(username, nickname, newPassword);
