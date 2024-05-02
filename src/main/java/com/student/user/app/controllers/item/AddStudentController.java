@@ -203,9 +203,6 @@ public class AddStudentController implements Initializable {
         if (!isValidInput("Middle Name", middleName.getText())) {
             invalidFields.put("Middle Name", middleName.getText());
         }
-        if (!isValidBirthday(String.valueOf(birthday.getValue()))) {
-            invalidFields.put("Birthday", birthday.getValue().toString());
-        }
         if (!isValidInput("Religion", religion.getText())) {
             invalidFields.put("Religion", religion.getText());
         }
