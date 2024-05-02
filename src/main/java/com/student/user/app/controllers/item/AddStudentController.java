@@ -25,6 +25,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+
+import java.time.LocalDate;
 import java.util.regex.Pattern;
 import java.util.HashMap;
 import java.util.Map;
@@ -201,6 +203,9 @@ public class AddStudentController implements Initializable {
         if (!isValidInput("Middle Name", middleName.getText())) {
             invalidFields.put("Middle Name", middleName.getText());
         }
+        if (!isValidBirthday(String.valueOf(birthday.getValue()))) {
+            invalidFields.put("Birthday", birthday.getValue().toString());
+        }
         if (!isValidInput("Religion", religion.getText())) {
             invalidFields.put("Religion", religion.getText());
         }
@@ -237,10 +242,25 @@ public class AddStudentController implements Initializable {
             case "Contact Number":
                 return Pattern.matches("^[0-9]{11}$", input);
 
+            case "Birthday":
+                return isValidBirthday(input);
+
 
             default:
                 return false;
         }
+    }
+
+    private boolean isValidBirthday(String birthdayString) {
+        LocalDate birthdayDate = LocalDate.parse(birthdayString);
+        if (birthdayDate == null) {
+            return false;
+        }
+
+        LocalDate currentDate = LocalDate.now();
+        LocalDate minValidDate = currentDate.minusYears(17);
+
+        return !birthdayDate.isAfter(minValidDate);
     }
 
 
