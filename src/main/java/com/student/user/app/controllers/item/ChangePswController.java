@@ -69,6 +69,11 @@ public class ChangePswController {
         String newPassword = newPswField.getText();
         String confirmPassword = confirmPswField.getText();
 
+        if (!newPassword.matches("[a-zA-Z0-9]+")) {
+            showAlert("Error", "New password should contain only alphanumeric characters.", Alert.AlertType.ERROR);
+            return;
+        }
+
         if (currentPassword.equals(newPassword)) {
             showAlert("Error", "New password should be different from the current password.", Alert.AlertType.ERROR);
             return;
