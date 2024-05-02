@@ -67,6 +67,7 @@ public class ChangePswController {
     protected void onSaveChangePswClicked(ActionEvent event) {
         String currentPassword = currentPswField.getText();
         String newPassword = newPswField.getText();
+        String confirmPassword = confirmPswField.getText();
 
         if (currentPassword.equals(newPassword)) {
             showAlert("Error", "New password should be different from the current password.", Alert.AlertType.ERROR);
@@ -75,6 +76,11 @@ public class ChangePswController {
 
         if (!validateCurrentPassword(usernameField.getText(), currentPassword)) {
             showAlert("Error", "Current password is incorrect.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        if (!newPassword.equals(confirmPassword)) {
+            showAlert("Error", "New password and confirm password do not match.", Alert.AlertType.ERROR);
             return;
         }
 
