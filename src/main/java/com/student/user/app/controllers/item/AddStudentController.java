@@ -88,7 +88,7 @@ public class AddStudentController implements Initializable {
             return "Invalid input for Birthday. Please select a valid date.";
         }
         if (selectedBirthday.after(minAllowedBirthday)) {
-            return "Invalid input for Birthday. Please select a date at least 17 years ago.";
+            return "Invalid input for Birthday. Please select a date at least 17 above.";
         }
         return null;
     }
