@@ -116,12 +116,7 @@ public class ChangePswController {
                         .or(newPswField.textProperty().isEmpty())
                         .or(confirmPswField.textProperty().isEmpty())
         );
-        usernameField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("[a-zA-Z0-9]*")) {
-                usernameField.setText(oldValue);
-                showAlert("Error", "Please enter a valid username", Alert.AlertType.ERROR);
-            }
-        });
+        usernameField.setEditable(false);
     }
 
     @FXML
