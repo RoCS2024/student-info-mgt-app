@@ -9,10 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -103,6 +100,14 @@ public class ChangePswController {
         usernameField.setText(user.getUsername());
     }
 
+    private void showAlert(String title, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
     @FXML
     private void initialize() {
         saveChangePswButton.disableProperty().bind(
@@ -111,6 +116,12 @@ public class ChangePswController {
                         .or(newPswField.textProperty().isEmpty())
                         .or(confirmPswField.textProperty().isEmpty())
         );
+        usernameField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[a-zA-Z0-9]*")) {
+                usernameField.setText(oldValue);
+                showAlert("Error", "Please enter a valid username", Alert.AlertType.ERROR);
+            }
+        });
     }
 
     @FXML
