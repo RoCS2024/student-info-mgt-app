@@ -103,6 +103,15 @@ public class ChangePswController {
         usernameField.setText(user.getUsername());
     }
 
+    @FXML
+    private void initialize() {
+        saveChangePswButton.disableProperty().bind(
+                usernameField.textProperty().isEmpty()
+                        .or(currentPswField.textProperty().isEmpty())
+                        .or(newPswField.textProperty().isEmpty())
+                        .or(confirmPswField.textProperty().isEmpty())
+        );
+    }
 
     @FXML
     protected void handleCancelChangePsw(MouseEvent event) {
