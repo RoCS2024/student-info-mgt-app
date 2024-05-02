@@ -2,9 +2,7 @@ package com.student.user.app.controllers.item;
 
 import com.student.information.management.StudentInfoMgtApplication;
 import com.student.information.management.appl.facade.student.StudentFacade;
-import com.student.information.management.appl.facade.student.impl.StudentFacadeImpl;
 import com.student.information.management.appl.model.student.Student;
-import com.student.information.management.data.student.dao.impl.StudentDaoImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
