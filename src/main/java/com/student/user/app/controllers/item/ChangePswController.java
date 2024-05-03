@@ -137,6 +137,23 @@ public class ChangePswController {
         usernameField.setText(user.getUsername());
     }
 
+    private void showAlert(String title, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    @FXML
+    private void initialize() {
+        saveChangePswButton.disableProperty().bind(
+                usernameField.textProperty().isEmpty()
+                        .or(currentPswField.textProperty().isEmpty())
+                        .or(newPswField.textProperty().isEmpty())
+                        .or(confirmPswField.textProperty().isEmpty())
+        );
+    }
 
     @FXML
     protected void handleCancelChangePsw(MouseEvent event) {

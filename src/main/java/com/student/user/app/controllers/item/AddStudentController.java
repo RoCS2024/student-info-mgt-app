@@ -33,7 +33,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-public class AddStudentController implements Initializable {
+public class  AddStudentController implements Initializable {
     @FXML
     private TextField studentId;
 
