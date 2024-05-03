@@ -50,9 +50,14 @@ public class MainController {
                 alert.setHeaderText(null);
                 alert.setContentText("Username and password are required.");
                 alert.showAndWait();
+            }
 
-            } else if (currentUser != null) {
-                if (password.equals(currentUser.getPassword()) && password2.equals(currentUser.getPassword())) {
+            else if (!username.matches("[a-zA-Z0-9~`!@#$%^&*()_={}|:;\"'<,>.?/]+") || !password.matches("[a-zA-Z0-9~`!@#$%^&*()_={}|:;\"'<,>.?/]+") && !password2.matches("[a-zA-Z0-9~`!@#$%^&*()_={}|:;\"'<,>.?/]+")) {
+                showAlert("Login Failed", "Username and password should only contain alpha-numeric characters.", Alert.AlertType.ERROR);
+            }
+
+            else if (currentUser != null) {
+                if (password.equals(currentUser.getPassword()) || password2.equals(currentUser.getPassword())) {
                     showAlert("Login Successful", "Welcome " + username + "!", Alert.AlertType.INFORMATION);
                     openDashboardWindow(event);
                 } else {
@@ -60,7 +65,7 @@ public class MainController {
                 }
             }
             else {
-                showAlert("Login Failed", "Username not found.", Alert.AlertType.ERROR);
+                showAlert("Login Failed", "Username not found", Alert.AlertType.ERROR);
             }
         } catch (Exception ex) {
             showAlert("Error", "An error occurred during login: " + ex.getMessage(), Alert.AlertType.ERROR);
