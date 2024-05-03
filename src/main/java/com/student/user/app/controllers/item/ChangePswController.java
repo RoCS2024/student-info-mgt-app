@@ -116,7 +116,6 @@ public class ChangePswController {
                         .or(newPswField.textProperty().isEmpty())
                         .or(confirmPswField.textProperty().isEmpty())
         );
-        usernameField.setEditable(false);
     }
 
     @FXML
