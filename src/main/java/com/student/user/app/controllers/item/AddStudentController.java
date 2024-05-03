@@ -77,9 +77,6 @@ public class AddStudentController implements Initializable {
 
 
     private String getInvalidInputMessage() {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.YEAR, -17);
-        Date minAllowedBirthday = cal.getTime();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date selectedBirthday = null;
         try {
@@ -87,11 +84,16 @@ public class AddStudentController implements Initializable {
         } catch (ParseException e) {
             return "Invalid input for Birthday. Please select a valid date.";
         }
-        if (selectedBirthday.after(minAllowedBirthday)) {
-            return "Invalid input for Birthday. Please select a date at least 17 above.";
+        Calendar selectedCal = Calendar.getInstance();
+        selectedCal.setTime(selectedBirthday);
+        int selectedYear = selectedCal.get(Calendar.YEAR);
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        if (selectedYear == currentYear) {
+            return "Invalid input for Birthday. Please select a date from a previous year.";
         }
         return null;
     }
+
     @FXML
     protected void onAddStudClicked(ActionEvent event) {
         Map<String, String> invalidFields = getInvalidFields();
