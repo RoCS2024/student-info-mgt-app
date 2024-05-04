@@ -41,9 +41,35 @@ public class ForgotPswController {
 
     private UserFacade userFacade = new UserFacadeImpl();
 
+    private String getInvalidInputMessage() {
+        String alphanumericRegex = "[a-zA-Z0-9]+";
 
+        if ( usernameField.getText().isEmpty() || nicknameField.getText().isEmpty() || newPswField.getText().isEmpty()) {
+            return "All fields must be filled.";
+        }
+
+        if (!usernameField.getText().matches(alphanumericRegex)) {
+            return "Invalid input for username. Please enter alphanumeric characters only.";
+        }
+        if (!nicknameField.getText().matches(alphanumericRegex)) {
+            return "Invalid input for Email. Please enter alphanumeric characters only.";
+        }
+        if (!newPswField.getText().matches(alphanumericRegex)) {
+            return "Invalid input for password. Please enter alphanumeric characters only.";
+        }
+        return null;
+    }
     @FXML
     protected void saveForgotPswClicked(ActionEvent event) {
+        try {
+            String invalidInputMessage = getInvalidInputMessage();
+            if (invalidInputMessage != null) {
+                showAlert("Invalid Input", invalidInputMessage);
+                return;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         User forgotPsw = new User();
         forgotPsw.setUsername(usernameField.getText());
         forgotPsw.setPassword(newPswField.getText());
@@ -83,6 +109,12 @@ public class ForgotPswController {
                 e.printStackTrace();
             }
         }
+    }private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     @FXML
