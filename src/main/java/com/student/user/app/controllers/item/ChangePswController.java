@@ -69,6 +69,15 @@ public class ChangePswController {
         String newPassword = newPswField.getText();
         String confirmPassword = confirmPswField.getText();
 
+        if (!newPassword.equals(confirmPassword)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Password does not match. Please try again");
+            alert.showAndWait();
+            return;
+        }
+
         if (!newPassword.matches("[a-zA-Z0-9]+")) {
             showAlert("Error", "New password should contain only alphanumeric characters.", Alert.AlertType.ERROR);
             return;
@@ -135,14 +144,6 @@ public class ChangePswController {
     public void setUser(User user) {
         this.user = user;
         usernameField.setText(user.getUsername());
-    }
-
-    private void showAlert(String title, String content, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
     }
 
     @FXML
