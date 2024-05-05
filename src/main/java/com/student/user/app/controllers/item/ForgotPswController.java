@@ -52,7 +52,7 @@ public class ForgotPswController {
             return "Invalid input for username. Please enter alphanumeric characters only.";
         }
         if (!nicknameField.getText().matches(alphanumericRegex)) {
-            return "Invalid input for Email. Please enter alphanumeric characters only.";
+            return "Invalid childhood nickname. Please Enter alphanumeric characters only";
         }
         if (!newPswField.getText().matches(alphanumericRegex)) {
             return "Invalid input for password. Please enter alphanumeric characters only.";
