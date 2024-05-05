@@ -84,14 +84,16 @@ public class  AddStudentController implements Initializable {
         }
         Calendar selectedCal = Calendar.getInstance();
         selectedCal.setTime(selectedBirthday);
-        int selectedYear = selectedCal.get(Calendar.YEAR);
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        if (selectedYear == currentYear) {
-            return "Invalid input for Birthday. Please select a date from a previous year.";
+
+
+        Calendar seventeenYearsAgo = Calendar.getInstance();
+        seventeenYearsAgo.add(Calendar.YEAR, -17);
+
+        if (selectedCal.after(seventeenYearsAgo)) {
+            return "Invalid input for Birthday. Please select a date from at least 17 years ago.";
         }
         return null;
     }
-
     @FXML
     protected void onAddStudClicked(ActionEvent event) {
         Map<String, String> invalidFields = getInvalidFields();
