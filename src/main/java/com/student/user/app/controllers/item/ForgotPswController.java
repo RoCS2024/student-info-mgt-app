@@ -42,7 +42,7 @@ public class ForgotPswController {
     private UserFacade userFacade = new UserFacadeImpl();
 
     private String getInvalidInputMessage() {
-        String alphanumericRegex = "[a-zA-Z0-9]+";
+        String alphanumericRegex = "[a-zA-Z0-9~`!@#$%^&*()_={}|:;\"'<,>.?/]+";
 
         if ( usernameField.getText().isEmpty() || nicknameField.getText().isEmpty() || newPswField.getText().isEmpty()) {
             return "All fields must be filled.";
