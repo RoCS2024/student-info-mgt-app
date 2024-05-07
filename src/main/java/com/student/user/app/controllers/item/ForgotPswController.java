@@ -42,7 +42,7 @@ public class ForgotPswController {
     private UserFacade userFacade = new UserFacadeImpl();
 
     private String getInvalidInputMessage() {
-        String alphanumericRegex = "[a-zA-Z0-9]+";
+        String alphanumericRegex = "[a-zA-Z0-9~`!@#$%^&*()_={}|:;\"'<,>.?/]+";
 
         if ( usernameField.getText().isEmpty() || nicknameField.getText().isEmpty() || newPswField.getText().isEmpty()) {
             return "All fields must be filled.";
@@ -52,7 +52,7 @@ public class ForgotPswController {
             return "Invalid input for username. Please enter alphanumeric characters only.";
         }
         if (!nicknameField.getText().matches(alphanumericRegex)) {
-            return "Invalid input for Email. Please enter alphanumeric characters only.";
+            return "Invalid childhood nickname. Please Enter alphanumeric characters only";
         }
         if (!newPswField.getText().matches(alphanumericRegex)) {
             return "Invalid input for password. Please enter alphanumeric characters only.";
