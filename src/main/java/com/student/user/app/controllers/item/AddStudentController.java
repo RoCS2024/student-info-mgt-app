@@ -245,7 +245,7 @@ public class  AddStudentController implements Initializable {
                 return Pattern.matches("^[a-zA-Z0-9 ]+$", input);
 
             case "Contact Number":
-                return Pattern.matches("^[0-9]{11}$", input);
+                return input.length() == 11 && Pattern.matches("^[0-9]{11}$", input);
 
 
             default:
