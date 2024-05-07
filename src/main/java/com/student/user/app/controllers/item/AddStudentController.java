@@ -239,8 +239,11 @@ public class  AddStudentController implements Initializable {
                 return Pattern.matches("^[a-zA-Z0-9\\-]+$", input);
 
             case "Last Name":
+                return Pattern.matches("^[a-zA-Z ]+$", input);
             case "First Name":
+                return Pattern.matches("^[a-zA-Z ]+$", input);
             case "Middle Name":
+                return Pattern.matches("^[a-zA-Z ]+$", input);
             case "Religion":
                 return Pattern.matches("^[a-zA-Z0-9 ]+$", input);
 
