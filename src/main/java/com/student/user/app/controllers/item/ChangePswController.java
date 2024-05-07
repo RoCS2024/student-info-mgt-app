@@ -83,10 +83,11 @@ public class ChangePswController {
             return;
         }
 
-        if (!newPassword.matches("[a-zA-Z0-9]+")) {
-            showAlert("Error", "New password should contain only alphanumeric characters.", Alert.AlertType.ERROR);
+        if (!newPassword.matches("[a-zA-Z0-9~`!@#$%^&*()_={}\\|:;\"'<,>.?/]+")) {
+            showAlert("Error", "New password should contain only alphanumeric characters and symbols.", Alert.AlertType.ERROR);
             return;
         }
+
 
         if (currentPassword.equals(newPassword)) {
             showAlert("Error", "New password should be different from the current password.", Alert.AlertType.ERROR);
