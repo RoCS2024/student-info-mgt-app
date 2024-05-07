@@ -84,18 +84,24 @@ public class  AddStudentController implements Initializable {
         }
         Calendar selectedCal = Calendar.getInstance();
         selectedCal.setTime(selectedBirthday);
-        int selectedYear = selectedCal.get(Calendar.YEAR);
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        if (selectedYear == currentYear) {
-            return "Invalid input for Birthday. Please select a date from a previous year.";
+
+
+        Calendar seventeenYearsAgo = Calendar.getInstance();
+        seventeenYearsAgo.add(Calendar.YEAR, -17);
+
+        if (selectedCal.after(seventeenYearsAgo)) {
+            return "Invalid input for Birthday. Please select a date from at least 17 years ago.";
         }
         return null;
     }
-
     @FXML
     protected void onAddStudClicked(ActionEvent event) {
         Map<String, String> invalidFields = getInvalidFields();
-
+        String emailInput = email.getText();
+        if (!isValidEmail(emailInput)) {
+            showAlert("Invalid Email Address", " Invalid Email Address. and not accept email without “@“ “.com“.");
+            return;
+        }
         if (!invalidFields.isEmpty()) {
             displayError("Invalid input in the following fields:", invalidFields);
             return;
@@ -131,7 +137,7 @@ public class  AddStudentController implements Initializable {
         addStudent.setAddress(address.getText());
         try {
             studentFacade.addStudent(addStudent);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
             try {
@@ -149,13 +155,15 @@ public class  AddStudentController implements Initializable {
                 dashboardStage.initStyle(StageStyle.UNDECORATED);
                 dashboardStage.show();
 
-            }
-            catch(Exception ex) {
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
-
-    }private void showAlert(String title, String message) {
+    }
+    private boolean isValidEmail(String email) {
+        return email != null && (email.toLowerCase().endsWith("@gmail.com") || email.toLowerCase().endsWith(".com")) && email.contains("@");
+    }
+    private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);
@@ -237,7 +245,7 @@ public class  AddStudentController implements Initializable {
                 return Pattern.matches("^[a-zA-Z0-9 ]+$", input);
 
             case "Contact Number":
-                return Pattern.matches("^[0-9]{11}$", input);
+                return input.length() == 11 && Pattern.matches("^[0-9]{11}$", input);
 
 
             default:
