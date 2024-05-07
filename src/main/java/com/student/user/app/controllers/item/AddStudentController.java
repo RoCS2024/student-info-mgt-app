@@ -97,7 +97,11 @@ public class  AddStudentController implements Initializable {
     @FXML
     protected void onAddStudClicked(ActionEvent event) {
         Map<String, String> invalidFields = getInvalidFields();
-
+        String emailInput = email.getText();
+        if (!isValidEmail(emailInput)) {
+            showAlert("Invalid Email Address", " Invalid Email Address. and not accept email without “@gmail.com“.");
+            return;
+        }
         if (!invalidFields.isEmpty()) {
             displayError("Invalid input in the following fields:", invalidFields);
             return;
@@ -133,7 +137,7 @@ public class  AddStudentController implements Initializable {
         addStudent.setAddress(address.getText());
         try {
             studentFacade.addStudent(addStudent);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
             try {
@@ -151,13 +155,15 @@ public class  AddStudentController implements Initializable {
                 dashboardStage.initStyle(StageStyle.UNDECORATED);
                 dashboardStage.show();
 
-            }
-            catch(Exception ex) {
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
-
-    }private void showAlert(String title, String message) {
+    }
+    private boolean isValidEmail(String email) {
+        return email.toLowerCase().endsWith("@gmail.com");
+    }
+    private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);
