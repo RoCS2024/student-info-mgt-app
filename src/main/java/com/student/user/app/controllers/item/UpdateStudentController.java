@@ -115,6 +115,16 @@ public class UpdateStudentController {
         updateStudent.setContactNumber(contactNo.getText());
         updateStudent.setAddress(address.getText());
 
+        String enteredEmail = email.getText();
+        if (!isValidEmail(enteredEmail)) {
+            System.err.println("Invalid Email Address: " + enteredEmail);
+            return;
+        }
+        updateStudent.setEmail(enteredEmail);
+
+        updateStudent.setContactNumber(contactNo.getText());
+        updateStudent.setAddress(address.getText());
+
         LocalDate selectedDate = birthday.getValue();
         if (selectedDate != null) {
             try {
@@ -150,6 +160,9 @@ public class UpdateStudentController {
             }
         }
 
+    }
+    private boolean isValidEmail(String email) {
+        return email != null && email.contains("@") && email.endsWith(".com");
     }
 
 }
