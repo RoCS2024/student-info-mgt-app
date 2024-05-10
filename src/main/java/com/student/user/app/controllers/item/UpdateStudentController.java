@@ -162,7 +162,8 @@ public class UpdateStudentController {
 
     }
     private boolean isValidEmail(String email) {
-        return email != null && email.contains("@") && email.endsWith(".com");
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$";
+        return email != null && email.matches(emailRegex);
     }
 
 }
