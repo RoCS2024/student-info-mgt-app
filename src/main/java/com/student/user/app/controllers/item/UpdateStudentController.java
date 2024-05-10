@@ -104,6 +104,10 @@ public class UpdateStudentController {
 
     @FXML
     protected void onUpdateStudOClicked(ActionEvent event){
+        if (!isValidInput()) {
+            System.err.println("Invalid input: Non-alphanumeric characters are not allowed.");
+            return;
+        }
         Student updateStudent = new Student();
         updateStudent.setStudentId(studentId.getText());
         updateStudent.setLastName(lastName.getText());
@@ -120,6 +124,11 @@ public class UpdateStudentController {
             System.err.println("Invalid Email Address: " + enteredEmail);
             return;
         }
+        String contactNumber = contactNo.getText().trim();
+        if (!isValidContactNumber(contactNumber)) {
+            System.err.println("Invalid Contact Number: " + contactNumber);
+            return;
+        }
         updateStudent.setEmail(enteredEmail);
 
         updateStudent.setContactNumber(contactNo.getText());
@@ -128,6 +137,11 @@ public class UpdateStudentController {
         LocalDate selectedDate = birthday.getValue();
         if (selectedDate != null) {
             try {
+                LocalDate minDate = LocalDate.now().minusYears(17);
+                if (selectedDate.isAfter(minDate)) {
+                    System.err.println("Invalid date: Please select a date from 17 years ago or earlier.");
+                    return;
+                }
                 LocalDateTime localDateTime = selectedDate.atStartOfDay();
                 Timestamp timestamp = Timestamp.valueOf(localDateTime);
                 updateStudent.setBirthday(timestamp);
@@ -161,9 +175,21 @@ public class UpdateStudentController {
         }
 
     }
+    private boolean isValidInput() {
+        return isValidAlphanumeric(lastName.getText()) &&
+                isValidAlphanumeric(firstName.getText()) &&
+                isValidAlphanumeric(middleName.getText()) &&
+                isValidAlphanumeric(religion.getText());
+    }
+    private boolean isValidAlphanumeric(String input) {
+        return input != null && input.matches("[a-zA-Z0-9]+");
+    }
+
     private boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$";
         return email != null && email.matches(emailRegex);
     }
-
+    private boolean isValidContactNumber(String contactNumber) {
+        return contactNumber.matches("\\d{1,11}");
+    }
 }
