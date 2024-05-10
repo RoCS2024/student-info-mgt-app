@@ -50,7 +50,8 @@ public class UpdateStudentController {
     @FXML
     private TextField contactNo;
 
-    @FXML TextArea address;
+    @FXML
+    TextArea address;
 
     private Student student;
 
@@ -83,7 +84,7 @@ public class UpdateStudentController {
 
     @FXML
     protected void handleCancelUpdateViewButton(ActionEvent event) {
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         showDashboard();
     }
@@ -103,9 +104,9 @@ public class UpdateStudentController {
     }
 
     @FXML
-    protected void onUpdateStudOClicked(ActionEvent event){
+    protected void onUpdateStudOClicked(ActionEvent event) {
         if (!isValidInput()) {
-            System.err.println("Invalid input: Non-alphanumeric characters are not allowed.");
+            showErrorAlert("Invalid input", "Non-alphanumeric characters are not allowed.");
             return;
         }
         Student updateStudent = new Student();
@@ -121,12 +122,12 @@ public class UpdateStudentController {
 
         String enteredEmail = email.getText();
         if (!isValidEmail(enteredEmail)) {
-            System.err.println("Invalid Email Address: " + enteredEmail);
+            showErrorAlert("Invalid Email Address " ," Please enter a valid email address.");
             return;
         }
         String contactNumber = contactNo.getText().trim();
         if (!isValidContactNumber(contactNumber)) {
-            System.err.println("Invalid Contact Number: " + contactNumber);
+            showErrorAlert("Invalid Contact Number " ,"Please enter a 11-digit contact number.");
             return;
         }
         updateStudent.setEmail(enteredEmail);
@@ -139,14 +140,14 @@ public class UpdateStudentController {
             try {
                 LocalDate minDate = LocalDate.now().minusYears(17);
                 if (selectedDate.isAfter(minDate)) {
-                    System.err.println("Invalid date: Please select a date from 17 years ago or earlier.");
+                    showErrorAlert("Invalid date format " , " Please select a date from 17 years ago or earlier.");
                     return;
                 }
                 LocalDateTime localDateTime = selectedDate.atStartOfDay();
                 Timestamp timestamp = Timestamp.valueOf(localDateTime);
                 updateStudent.setBirthday(timestamp);
             } catch (IllegalArgumentException e) {
-                System.err.println("Invalid date format: " + selectedDate);
+                showErrorAlert("Invalid date format " ,"Please select a valid date format.");
                 e.printStackTrace();
             }
         }
@@ -155,32 +156,33 @@ public class UpdateStudentController {
             studentFacade.updateStudent(updateStudent);
         } catch (Exception ex) {
             ex.printStackTrace();
-        }
-        finally {
+        } finally {
 
             try {
-               Stage previousStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-               previousStage.close();
+                Stage previousStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                previousStage.close();
 
-               Stage dashboardStage = new Stage();
-               FXMLLoader loader = new FXMLLoader();
-               loader.setLocation(getClass().getResource("/views/StudentList.fxml"));
-               Parent root = loader.load();
-               Scene scene = new Scene(root);
-               dashboardStage.setScene(scene);
-               dashboardStage.show();
+                Stage dashboardStage = new Stage();
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/views/StudentList.fxml"));
+                Parent root = loader.load();
+                Scene scene = new Scene(root);
+                dashboardStage.setScene(scene);
+                dashboardStage.show();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
     }
+
     private boolean isValidInput() {
         return isValidAlphanumeric(lastName.getText()) &&
                 isValidAlphanumeric(firstName.getText()) &&
                 isValidAlphanumeric(middleName.getText()) &&
                 isValidAlphanumeric(religion.getText());
     }
+
     private boolean isValidAlphanumeric(String input) {
         return input != null && input.matches("[a-zA-Z0-9]+");
     }
@@ -189,7 +191,16 @@ public class UpdateStudentController {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$";
         return email != null && email.matches(emailRegex);
     }
+
     private boolean isValidContactNumber(String contactNumber) {
-        return contactNumber.matches("\\d{1,11}");
+        return contactNumber.matches("\\d{11}");
+    }
+
+    private void showErrorAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }
