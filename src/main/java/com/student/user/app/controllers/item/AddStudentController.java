@@ -161,7 +161,7 @@ public class  AddStudentController implements Initializable {
         }
     }
     private boolean isValidEmail(String email) {
-        return email != null && (email.toLowerCase().endsWith("@gmail.com") || email.toLowerCase().endsWith(".com")) && email.contains("@");
+        return email != null && email.contains("@") && email.endsWith(".com");
     }
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
